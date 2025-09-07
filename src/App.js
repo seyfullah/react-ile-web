@@ -9,7 +9,8 @@ import { Component } from 'react';
 export default class App extends Component {
   state = {
     currentCategory: "",
-    products: []
+    products: [],
+    cart: []
   }
   componentDidMount() {
     this.getProducts()
@@ -27,20 +28,36 @@ export default class App extends Component {
       .then(response => response.json())
       .then(data => this.setState({ products: data }))
   }
+  addToCart = (product) => {
+    this.setState(prevState => {
+      let newCart = [...prevState.cart];
+      var addedItem = newCart.find(c => c.product.id === product.id);
+      if (addedItem) {
+        addedItem.quantity += 1;
+      }
+      else {
+        newCart.push({ product: product, quantity: 1 });
+      }
+      return { cart: newCart };
+    });
+  }
   render() {
     let categoryInfo = { title: "Kategori Listesi" }
     let productInfo = { title: "Ürün Listesi" }
     return (
       <div className="App">
         <Container>
+          <Navi cart={this.state.cart} />
           <Row>
-            <Navi />
-          </Row>
-          <Row>
-            <Col xs="3"><CategoryList currentCategory={this.state.currentCategory} changeCategory={this.changeCategory} info={categoryInfo} /></Col>
+            <Col xs="3"><CategoryList
+              currentCategory={this.state.currentCategory}
+              changeCategory={this.changeCategory}
+              info={categoryInfo} /></Col>
             <Col xs="9"><ProductList
               products={this.state.products}
-              currentCategory={this.state.currentCategory} info={productInfo} /></Col>
+              currentCategory={this.state.currentCategory}
+              info={productInfo}
+              addToCart={this.addToCart} /></Col>
           </Row>
         </Container>
         <h2>Hoş geldin.</h2>
