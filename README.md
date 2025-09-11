@@ -72,7 +72,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 npm install react-scripts
 npm install json-server
 
-json-server -- watch db.json
+json-server --watch db.json
 
 In an new terminal
 npm start
