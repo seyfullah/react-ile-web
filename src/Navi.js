@@ -1,13 +1,10 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import {
-  Collapse,
   Navbar,
   NavbarToggler,
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink,
-  NavbarText,
 } from 'reactstrap';
 import CartSummary from './CartSummary';
 import { Link } from 'react-router-dom';
@@ -34,6 +31,9 @@ export default class Navi extends Component {
             <Nav className="me-auto" navbar>
               <NavItem>
                 <Link to="/form1">Form 1 Demo</Link>
+              </NavItem>
+              <NavItem>
+                <Link to="/form2">Form 2 Demo</Link>
               </NavItem>
               <CartSummary cart={this.props.cart} removeFromCart={this.props.removeFromCart}/>
             </Nav>
